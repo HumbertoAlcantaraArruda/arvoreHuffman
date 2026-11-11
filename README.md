@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🌳 Árvore de Huffman
+<img src="https://api.iconify.design/tabler/binary-tree-2.svg?color=%231E90FF" width="72" alt="">
+
+# Árvore de Huffman
 
 ### Compressão de frases palavra por palavra
 
@@ -20,32 +22,32 @@
 
 ---
 
-## 💡 A ideia
+## <img src="https://api.iconify.design/tabler/bulb.svg?color=%231E90FF" width="26" align="top" alt=""> A ideia
 
 O algoritmo de Huffman comprime dados dando **códigos binários curtos ao que aparece muito** e **códigos longos ao que aparece pouco**.
 
 Aqui a proposta tem um diferencial: os símbolos não são letras, são **palavras inteiras e espaços em branco**. Uma frase cheia de repetições vira uma sequência compacta de bits, gravada em disco **byte a byte**, e depois volta a ser texto.
 
-## ⚙️ Como funciona
+## <img src="https://api.iconify.design/tabler/settings.svg?color=%231E90FF" width="26" align="top" alt=""> Como funciona
 
 ```mermaid
 flowchart LR
-    T["📄 Texto"] --> F["🔢 Frequências"]
-    F --> L["🔗 Lista encadeada<br>ordenada"]
-    L --> H["🌳 Árvore de<br>Huffman"]
-    H --> C["🏷️ Tabela de<br>códigos"]
-    C --> B[("💾 Tabela<br>binária")]
-    C --> X["🔐 Frase<br>codificada"]
-    X --> Y[("💾 Bits<br>byte a byte")]
-    B -.-> D["🔓 Decodificação"]
+    T["Texto"] --> F["Frequências"]
+    F --> L["Lista encadeada<br>ordenada"]
+    L --> H["Árvore de<br>Huffman"]
+    H --> C["Tabela de<br>códigos"]
+    C --> B[("Tabela<br>binária")]
+    C --> X["Frase<br>codificada"]
+    X --> Y[("Bits<br>byte a byte")]
+    B -.-> D["Decodificação"]
     Y -.-> D
-    D --> R["💬 Frase original"]
+    D --> R["Frase original"]
 ```
 
 <table>
   <tr>
-    <th width="50%">🔐 Programa 1: codificação</th>
-    <th width="50%">🔓 Programa 2: decodificação</th>
+    <th width="50%"><img src="https://api.iconify.design/tabler/lock.svg?color=%231E90FF" width="20" align="top" alt=""> Programa 1: codificação</th>
+    <th width="50%"><img src="https://api.iconify.design/tabler/lock-open.svg?color=%231E90FF" width="20" align="top" alt=""> Programa 2: decodificação</th>
   </tr>
   <tr valign="top">
     <td>
@@ -70,7 +72,7 @@ flowchart LR
   </tr>
 </table>
 
-## 🧪 Exemplo
+## <img src="https://api.iconify.design/tabler/flask.svg?color=%231E90FF" width="26" align="top" alt=""> Exemplo
 
 Frase: **"amar é sonhar sonhar é viver"**
 
@@ -96,43 +98,27 @@ graph TD
 
 > **Resultado:** `10001100111011101100101`: **23 bits**, contra **33 bits** de um código de tamanho fixo. Uma economia de cerca de **30%**.
 
-## 🚀 Como executar
+## <img src="https://api.iconify.design/tabler/books.svg?color=%231E90FF" width="26" align="top" alt=""> Saiba mais
 
-O projeto usa o compilador do **Dev-C++** (TDM-GCC 4.7.1) em **32 bits**, por causa da biblioteca `conio2`.
+- <img src="https://api.iconify.design/tabler/file-text.svg?color=%231E90FF" width="16" align="top" alt=""> [Enunciado do trabalho](docs/trabalho.md)
+- <img src="https://api.iconify.design/tabler/binary-tree.svg?color=%231E90FF" width="16" align="top" alt=""> [Como funciona a árvore de Huffman](docs/arvoreHuffman.md)
+- <img src="https://api.iconify.design/tabler/pin.svg?color=%231E90FF" width="16" align="top" alt=""> [Andamento do projeto](docs/PROJETO.md)
 
-```bash
-# compilar
-g++ -m32 -std=c++11 -Wall programa1.cpp -o programa1.exe -static-libgcc -lconio
-g++ -m32 -std=c++11 -Wall programa2.cpp -o programa2.exe -static-libgcc -lconio
-
-# executar (nessa ordem: o 1º gera os arquivos que o 2º lê)
-./programa1.exe
-./programa2.exe
-```
-
-> No Dev-C++, basta selecionar o compilador **TDM-GCC 4.7.1 32-bit** e apertar **F11**.
-
-## 📚 Saiba mais
-
-- 📝 [Enunciado do trabalho](docs/trabalho.md)
-- 🌳 [Como funciona a árvore de Huffman](docs/arvoreHuffman.md)
-- 📌 [Andamento do projeto](docs/PROJETO.md)
-
-## 👑 Dupla
+## <img src="https://api.iconify.design/tabler/users.svg?color=%231E90FF" width="26" align="top" alt=""> Dupla
 
 <table align="center">
   <tr>
     <td align="center" width="200">
       <a href="https://github.com/HumbertoAlcantaraArruda">
         <img src="https://github.com/HumbertoAlcantaraArruda.png" width="110" alt="Humberto Arruda"><br>
-        <b>👨‍💻 Humberto Arruda</b>
+        <img src="https://api.iconify.design/tabler/user-code.svg?color=%231E90FF" width="16" align="top" alt=""> <b>Humberto Arruda</b>
       </a><br>
       <sub>O <code>*ponteiro</code></sub>
     </td>
     <td align="center" width="200">
       <a href="https://github.com/nicolyrampaso">
         <img src="https://github.com/nicolyrampaso.png" width="110" alt="Nicoly Rampaso"><br>
-        <b>👩‍💻 Nicoly Rampaso</b>
+        <img src="https://api.iconify.design/tabler/user-code.svg?color=%231E90FF" width="16" align="top" alt=""> <b>Nicoly Rampaso</b>
       </a><br>
       <sub>A <code>&amp;referência</code></sub>
     </td>
