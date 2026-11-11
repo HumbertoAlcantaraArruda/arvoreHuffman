@@ -107,3 +107,5 @@ xcuserdata/
 *.xccheckout
 *.moved-aside
 DerivedData/
+
+*.exe
