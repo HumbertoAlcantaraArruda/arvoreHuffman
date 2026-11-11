@@ -125,16 +125,16 @@ g++ -m32 -std=c++11 -Wall programa2.cpp -o programa2.exe -static-libgcc -lconio
     <td align="center" width="200">
       <a href="https://github.com/HumbertoAlcantaraArruda">
         <img src="https://github.com/HumbertoAlcantaraArruda.png" width="110" alt="Humberto Arruda"><br>
-        <b>🤴 Humberto Arruda</b>
+        <b>👨‍💻 Humberto Arruda</b>
       </a><br>
-      <sub>O Rei</sub>
+      <sub>O <code>*ponteiro</code></sub>
     </td>
     <td align="center" width="200">
       <a href="https://github.com/nicolyrampaso">
         <img src="https://github.com/nicolyrampaso.png" width="110" alt="Nicoly Rampaso"><br>
-        <b>👸 Nicoly Rampaso</b>
+        <b>👩‍💻 Nicoly Rampaso</b>
       </a><br>
-      <sub>A Rainha</sub>
+      <sub>A <code>&amp;referência</code></sub>
     </td>
   </tr>
 </table>
