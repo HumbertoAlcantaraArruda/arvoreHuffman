@@ -1,75 +1,140 @@
-# Árvore de Huffman: codificação de palavras
+<div align="center">
 
-Trabalho prático da disciplina **Estruturas de Dados II** (2026, 2º semestre), com o professor Francisco Assis da Silva.
+# 🌳 Árvore de Huffman
 
-O projeto usa uma **árvore de Huffman** para comprimir frases. A diferença em relação ao Huffman clássico é que os símbolos não são caracteres, e sim **palavras inteiras e espaços em branco**. As palavras mais frequentes recebem os códigos binários mais curtos, e a frase codificada é gravada em disco **byte a byte**.
+### Compressão de frases palavra por palavra
 
-## Como funciona
+<p>
+  <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C">
+  <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++">
+  <img src="https://img.shields.io/badge/Dev--C++-TDM--GCC_4.7.1-1E90FF?style=for-the-badge" alt="Dev-C++">
+  <img src="https://img.shields.io/badge/status-em_desenvolvimento-F2B705?style=for-the-badge" alt="Status">
+</p>
 
-O trabalho é dividido em **dois programas independentes**:
+<p>
+  <b>Estruturas de Dados II</b> · 2026 · 2º semestre<br>
+  <sub>Prof. Francisco Assis da Silva</sub>
+</p>
 
-### 1º programa: codificação (`programa1.cpp`)
+</div>
 
-1. Lê um texto grande de um arquivo, ignorando pontuação e maiúsculas/minúsculas.
-2. Conta a frequência de cada palavra e de cada espaço e dá a cada um um **símbolo numérico**.
-3. Monta a árvore de Huffman usando uma **lista encadeada ordenada** pela frequência.
-4. Gera o código de Huffman de cada símbolo e guarda tudo numa **lista de registros** (símbolo, palavra, frequência e código).
-5. Exibe na tela a lista de registros e a árvore desenhada.
-6. Grava a tabela (símbolo, palavra e código) em um **arquivo binário**.
-7. Codifica uma frase diferente do texto original e grava a sequência de bits **byte a byte**.
+---
 
-### 2º programa: decodificação (`programa2.cpp`)
+## 💡 A ideia
 
-1. Lê o arquivo binário com a tabela de códigos e o arquivo com a frase codificada.
-2. Reconstrói a árvore de Huffman **só a partir dos códigos**.
-3. Percorre a árvore bit a bit até as folhas, recupera as palavras e os espaços e mostra a frase decodificada.
+O algoritmo de Huffman comprime dados dando **códigos binários curtos ao que aparece muito** e **códigos longos ao que aparece pouco**.
 
-Os dois programas rodam sem nenhuma entrada do usuário: as funções são chamadas com valores fixos.
+Aqui a proposta tem um diferencial: os símbolos não são letras, são **palavras inteiras e espaços em branco**. Uma frase cheia de repetições vira uma sequência compacta de bits, gravada em disco **byte a byte**, e depois volta a ser texto.
 
-## Como compilar e executar
+## ⚙️ Como funciona
 
-O projeto usa o compilador do **Dev-C++** (TDM-GCC 4.7.1) em modo **32 bits**, necessário para a biblioteca `conio2`.
-
-**No Dev-C++:** selecione o compilador *TDM-GCC 4.7.1 32-bit* e compile normalmente (F11).
-
-**Pela linha de comando:**
-
+```mermaid
+flowchart LR
+    T["📄 Texto"] --> F["🔢 Frequências"]
+    F --> L["🔗 Lista encadeada<br>ordenada"]
+    L --> H["🌳 Árvore de<br>Huffman"]
+    H --> C["🏷️ Tabela de<br>códigos"]
+    C --> B[("💾 Tabela<br>binária")]
+    C --> X["🔐 Frase<br>codificada"]
+    X --> Y[("💾 Bits<br>byte a byte")]
+    B -.-> D["🔓 Decodificação"]
+    Y -.-> D
+    D --> R["💬 Frase original"]
 ```
+
+<table>
+  <tr>
+    <th width="50%">🔐 Programa 1: codificação</th>
+    <th width="50%">🔓 Programa 2: decodificação</th>
+  </tr>
+  <tr valign="top">
+    <td>
+      <ul>
+        <li>Lê um texto grande de um arquivo</li>
+        <li>Conta a frequência de cada palavra e espaço</li>
+        <li>Monta a árvore com uma <b>lista encadeada ordenada</b></li>
+        <li>Gera os códigos e exibe a tabela e a árvore</li>
+        <li>Grava a tabela em <b>arquivo binário</b></li>
+        <li>Codifica uma nova frase <b>byte a byte</b></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Lê a tabela binária e a frase codificada</li>
+        <li>Reconstrói a árvore <b>só pelos códigos</b></li>
+        <li>Percorre a árvore bit a bit até as folhas</li>
+        <li>Recupera palavras e espaços</li>
+        <li>Mostra a frase decodificada na tela</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+## 🧪 Exemplo
+
+Frase: **"amar é sonhar sonhar é viver"**
+
+```mermaid
+graph TD
+    R(("11")) -->|0| E["␣ espaço · 5"]
+    R -->|1| C(("6"))
+    C -->|0| A(("2"))
+    C -->|1| B(("4"))
+    A -->|0| amar["amar · 1"]
+    A -->|1| viver["viver · 1"]
+    B -->|0| e["é · 2"]
+    B -->|1| sonhar["sonhar · 2"]
+```
+
+| Símbolo  | Frequência | Código |
+|----------|:----------:|:------:|
+| ␣ espaço | 5          | `0`    |
+| amar     | 1          | `100`  |
+| viver    | 1          | `101`  |
+| é        | 2          | `110`  |
+| sonhar   | 2          | `111`  |
+
+> **Resultado:** `10001100111011101100101`: **23 bits**, contra **33 bits** de um código de tamanho fixo. Uma economia de cerca de **30%**.
+
+## 🚀 Como executar
+
+O projeto usa o compilador do **Dev-C++** (TDM-GCC 4.7.1) em **32 bits**, por causa da biblioteca `conio2`.
+
+```bash
+# compilar
 g++ -m32 -std=c++11 -Wall programa1.cpp -o programa1.exe -static-libgcc -lconio
 g++ -m32 -std=c++11 -Wall programa2.cpp -o programa2.exe -static-libgcc -lconio
+
+# executar (nessa ordem: o 1º gera os arquivos que o 2º lê)
+./programa1.exe
+./programa2.exe
 ```
 
-Execute o `programa1.exe` primeiro, porque ele gera os arquivos binários que o `programa2.exe` lê.
+> No Dev-C++, basta selecionar o compilador **TDM-GCC 4.7.1 32-bit** e apertar **F11**.
 
-## Estrutura
+## 📚 Saiba mais
 
-```
-arvoreHuffman/
-├── programa1.cpp          # codificação
-├── programa2.cpp          # decodificação
-└── docs/
-    ├── trabalho.md        # enunciado do trabalho
-    ├── arvoreHuffman.md   # explicação da árvore de Huffman com exemplo
-    ├── PROJETO.md         # ambiente, regras e andamento do projeto
-    └── GUIA.md            # orientações de apoio ao desenvolvimento
-```
+- 📝 [Enunciado do trabalho](docs/trabalho.md)
+- 🌳 [Como funciona a árvore de Huffman](docs/arvoreHuffman.md)
+- 📌 [Andamento do projeto](docs/PROJETO.md)
 
-## Regras de código
+## 👑 Dupla
 
-O código segue estas restrições da disciplina:
-
-- sem `break` para sair de repetições (permitido apenas em `switch`);
-- sem `continue`, `goto` ou `return;` vazio;
-- sem variáveis globais;
-- sem ponteiro triplo (`***`);
-- sem `scanf()` ou `gets()`;
-- structs declaradas no formato `struct nome { ... };` seguido de `typedef struct nome Nome;`.
-
-## Status
-
-🚧 Em desenvolvimento. O andamento está em [`docs/PROJETO.md`](docs/PROJETO.md).
-
-## Dupla
-
-- [Humberto Arruda](https://github.com/HumbertoAlcantaraArruda)
-- [Nicoly Rampaso](https://github.com/nicolyrampaso)
+<table align="center">
+  <tr>
+    <td align="center" width="200">
+      <a href="https://github.com/HumbertoAlcantaraArruda">
+        <img src="https://github.com/HumbertoAlcantaraArruda.png" width="110" alt="Humberto Arruda"><br>
+        <b>🤴 Humberto Arruda</b>
+      </a><br>
+      <sub>O Rei</sub>
+    </td>
+    <td align="center" width="200">
+      <a href="https://github.com/nicolyrampaso">
+        <img src="https://github.com/nicolyrampaso.png" width="110" alt="Nicoly Rampaso"><br>
+        <b>👸 Nicoly Rampaso</b>
+      </a><br>
+      <sub>A Rainha</sub>
+    </td>
+  </tr>
+</table>
